@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Homes in Pensby â Leverhulme Consultation</title>
+  <!-- PDF.js â renders the masterplan PDF as a page-by-page flipbook -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* âââ CSS Variables âââââââââââââââââââââââââââââââââââââââââ */
+    :root {
+      --c-dark:       #1a1a2e;
+      --c-green:      #265541;
+      --c-green-mid:  #2f6a52;
+      --c-primary-bg: #f0f2ee;
+      --c-yellow:     #55263A;
+      --c-amber:      #6b3049;
+      --c-orange:     #7a3a55;
+      --c-teal:       #4f615f;
+      --c-white:      #ffffff;
+      --c-text:       #092b32;
+      --f-body:       'Montserrat', sans-serif;
+      --f-head:       'Playfair Display', serif;
+    }
+
+    /* âââ Reset & Base ââââââââââââââââââââââââââââââââââââââââââ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      color: var(--c-text);
+      background: var(--c-white);
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* âââ Typography ââââââââââââââââââââââââââââââââââââââââââââ */
+    h1 {
+      font-family: var(--f-body);
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      letter-spacing: 14px;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+    h2 {
+      font-family: var(--f-head);
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      line-height: 1.2;
+    }
+    h3 {
+      font-family: var(--f-body);
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    p { font-size: 1rem; line-height: 1.8; }
+
+    /* âââ Header ââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+      padding: 0 2rem;
+    }
+    .site-header.transparent {
+      background: linear-gradient(to bottom, rgba(9,43,50,0.55) 0%, rgba(9,43,50,0.0) 100%);
+      backdrop-filter: blur(6px) saturate(1.2);
+      -webkit-backdrop-filter: blur(6px) saturate(1.2);
+    }
+    .site-header.scrolled {
+      background: var(--c-green);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .site-header__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    /* Logo sits in a white band that bleeds to the left header edge */
+    .logo-band {
+      background: #ffffff;
+      height: 80px; /* full header height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2.5rem;
+      margin-left: -2rem; /* bleed to left edge */
+      flex-shrink: 0;
+      min-width: 180px;
+    }
+    .site-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .site-logo .logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+    /* Fallback text shown when image fails to load */
+    .site-logo .logo-fallback {
+      display: none;
+      color: var(--c-green);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .site-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    .site-nav a {
+      color: var(--c-white);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      opacity: 0.9;
+    }
+    .site-nav a:hover { color: rgba(255,255,255,1); opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+    .nav-cta {
+      background: var(--c-yellow);
+      color: #ffffff !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      opacity: 1 !important;
+      text-decoration: none !important;
+    }
+    .nav-cta:hover { background: var(--c-amber) !important; color: #ffffff !important; text-decoration: none !important; }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--c-white);
+      transition: all 0.3s;
+    }
+
+    /* âââ Hero ââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 8vw;
+      overflow: hidden;
+      background: var(--c-green);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(9,43,50,0.15) 0%,
+          rgba(9,43,50,0.25) 40%,
+          rgba(9,43,50,0.88) 100%),
+        url("hero-image.jpg") center/cover no-repeat;
+      /* â Save your photo as hero-image.jpg in the same folder as this file */
+      background-color: var(--c-green); /* fallback colour while image loads */
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      color: var(--c-white);
+    }
+    .hero-glass {
+      display: inline-block;
+      background: rgba(9, 43, 50, 0.38);
+      backdrop-filter: blur(10px) saturate(1.3);
+      -webkit-backdrop-filter: blur(10px) saturate(1.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2.5rem 3rem 2.5rem;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      color: var(--c-white);
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+      letter-spacing: 10px;
+    }
+    .hero h1 span {
+      display: block;
+      font-family: var(--f-head);
+      font-weight: 300;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 2px;
+      text-transform: none;
+      color: #ffffff;
+    }
+    .hero-desc {
+      max-width: 600px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--c-yellow);
+      color: #ffffff;
+      border-color: var(--c-yellow);
+    }
+    .btn-primary:hover {
+      background: var(--c-amber);
+      border-color: var(--c-amber);
+      color: #ffffff;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--c-white);
+      border-color: var(--c-white);
+    }
+    .btn-outline:hover {
+      background: var(--c-white);
+      color: var(--c-green);
+    }
+
+    /* âââ Stats Bar âââââââââââââââââââââââââââââââââââââââââââââ */
+    .stats-bar {
+      background: var(--c-yellow);
+      padding: 2.5rem 2rem;
+    }
+    .stats-bar__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: var(--f-head);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      margin-top: 0.4rem;
+    }
+
+    /* âââ Section Wrapper âââââââââââââââââââââââââââââââââââââââ */
+    .section { padding: 6rem 2rem; }
+    .section__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .section--dark {
+      background: var(--c-green);
+      color: var(--c-white);
+    }
+    .section--light { background: var(--c-primary-bg); }
+    .section--white { background: var(--c-white); }
+    .section--teal {
+      background: var(--c-dark);
+      color: var(--c-white);
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--c-amber);   /* burgundy on light bg â good contrast */
+      margin-bottom: 0.8rem;
+    }
+    .section--dark .section-label { color: rgba(255,255,255,0.7); }
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--c-yellow);
+      margin: 1.2rem 0 2rem;
+    }
+    .section--dark .section-divider { background: rgba(255,255,255,0.35); }
+
+    /* âââ Two-column layout âââââââââââââââââââââââââââââââââââââ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+    .col-image-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      min-height: 380px;
+      position: relative;
+    }
+    .col-image-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      min-height: 380px;
+    }
+    .col-image-placeholder {
+      min-height: 380px;
+      background: #e6edea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #4a6a55;
+      font-size: 0.95rem;
+      padding: 2rem;
+    }
+    .col-image {
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .col-image svg { width: 100%; height: 100%; }
+
+    /* âââ Welcome Section âââââââââââââââââââââââââââââââââââââââ */
+    .welcome-text { font-size: 1.15rem; }
+    .welcome-two-col { align-items: center; }
+    .welcome-img-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      min-height: 360px;
+    }
+    .welcome-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      min-height: 360px;
+    }
+    .welcome-img-placeholder {
+      min-height: 360px;
+      background: #d8e8d4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #4a6a55;
+      font-size: 0.95rem;
+      padding: 2rem;
+    }
+
+    /* âââ Feature Cards âââââââââââââââââââââââââââââââââââââââââ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      background: var(--c-white);
+      border-radius: 4px;
+      padding: 2.5rem;
+      border-left: 4px solid var(--c-yellow);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .feature-number {
+      font-family: var(--f-head);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--c-yellow);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card h3 { margin-bottom: 1rem; color: var(--c-green); }
+    .feature-card p { font-size: 0.95rem; color: var(--c-teal); }
+
+    /* âââ Feature photo row âââââââââââââââââââââââââââââââââââââ */
+    .feature-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .feature-photo {
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--c-primary-bg);
+      position: relative;
+    }
+    .feature-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-label-top, .photo-label-bottom {
+      background: var(--c-green);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      text-align: center;
+    }
+    .photo-label-bottom {
+      background: var(--c-yellow);
+    }
+    .feature-photo .photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(9,43,50,0.7));
+      color: white;
+      font-size: 0.78rem;
+      padding: 1.5rem 1rem 0.75rem;
+      font-weight: 500;
+    }
+    /* Placeholder shown when image is missing */
+    .feature-photo .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--c-teal);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+      background: #e6edea;
+    }
+    .feature-photo .photo-placeholder svg { opacity: 0.4; }
+    @media (max-width: 600px) {
+      .feature-photos { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    /* âââ Masterplan flipbook âââââââââââââââââââââââââââââââââââ */
+    .flipbook-wrap {
+      margin-top: 3rem;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.35);
+      background: #1a3a2a;
+    }
+    .flipbook-viewer {
+      width: 100%;
+      position: relative;
+      background: #1a3a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 420px;
+    }
+    #pdf-canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 75vh;
+      object-fit: contain;
+    }
+    /* Prev / Next hit areas */
+    .flip-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: white;
+      width: 48px;
+      height: 64px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+    .flip-btn:hover { background: rgba(255,255,255,0.25); }
+    .flip-btn:disabled { opacity: 0.2; cursor: default; }
+    .flip-btn--prev { left: 1rem; }
+    .flip-btn--next { right: 1rem; }
+    /* Toolbar */
+    .flipbook-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: rgba(0,0,0,0.3);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .flipbook-bar .page-info {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      font-family: var(--f-body);
+      white-space: nowrap;
+    }
+    .flipbook-bar .page-info strong { color: white; }
+    .flipbook-bar .bar-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .flipbook-bar .bar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .zoom-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 4px;
+      width: 30px;
+      height: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .zoom-btn:hover { background: rgba(255,255,255,0.2); }
+    /* Loading / error states */
+    .flipbook-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      font-family: var(--f-body);
+    }
+    .flipbook-loading .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .flipbook-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-family: var(--f-body);
+    }
+    .flipbook-placeholder svg { opacity: 0.35; margin-bottom: 0.5rem; }
+    .flipbook-placeholder h4 { color: rgba(255,255,255,0.8); font-size: 1rem; margin: 0; }
+    .flipbook-placeholder p  { font-size: 0.82rem; max-width: 340px; line-height: 1.6; margin: 0; }
+    .flipbook-placeholder code {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.9);
+    }
+    @media (max-width: 600px) {
+      .flip-btn { width: 36px; height: 50px; }
+      .flip-btn--prev { left: 0.4rem; }
+      .flip-btn--next { right: 0.4rem; }
+    }
+
+    /* âââ About Leverhulme ââââââââââââââââââââââââââââââââââââââ */
+    .lev-photo-wrap {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      min-height: 360px;
+      position: relative;
+    }
+    .lev-photo-img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      min-height: 360px;
+    }
+    .lev-photo-placeholder {
+      min-height: 360px;
+      background: #d8e8d4;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; color: #4a6a55; font-size: 0.95rem; padding: 2rem;
+    }
+    .lev-logo-box {
+      background: var(--c-yellow);
+      padding: 2.5rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 4/3;
+    }
+    .lev-logo-text {
+      font-family: var(--f-head);
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .lev-logo-text span {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-top: 0.5rem;
+    }
+
+    /* âââ Feedback Form âââââââââââââââââââââââââââââââââââââââââ */
+    .form-section {
+      background: var(--c-green);
+      padding: 6rem 2rem;
+    }
+    .form-section__inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .form-section .section-label { color: rgba(255,255,255,0.7); }
+    .form-section h2 { color: #ffffff; }
+    .form-section > .form-section__inner > p { color: rgba(255,255,255,0.85); margin-top: 0.5rem; }
+    .form-section .section-divider { background: rgba(255,255,255,0.3); }
+
+    /* Privacy banner */
+    .privacy-banner {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .privacy-banner svg { flex-shrink: 0; margin-top: 2px; }
+    .privacy-banner strong { color: #ffffff; }
+
+    /* Question cards */
+    .q-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .q-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .q-num {
+      background: var(--c-green);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .q-text {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--c-dark);
+      line-height: 1.5;
+    }
+    .q-hint {
+      display: block;
+      font-weight: 400;
+      font-size: 0.82rem;
+      color: var(--c-teal);
+      margin-top: 0.3rem;
+    }
+
+    /* Pill-style yes/no/unsure buttons */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .pill-label {
+      position: relative;
+      cursor: pointer;
+    }
+    .pill-label input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .pill-face {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      border: 2px solid #d0d9d4;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--c-teal);
+      background: #f8faf8;
+      transition: all 0.18s;
+      user-select: none;
+    }
+    .pill-label input:checked + .pill-face {
+      background: var(--c-green);
+      border-color: var(--c-green);
+      color: #ffffff;
+    }
+    .pill-label:hover .pill-face {
+      border-color: var(--c-green);
+      color: var(--c-green);
+    }
+    .pill-label input:checked + .pill-face::before {
+      content: 'â ';
+      font-size: 0.8rem;
+    }
+
+    /* Checkbox tile group */
+    .tile-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.6rem;
+    }
+    .tile-label {
+      position: relative;
+      cursor: pointer;
+    }
+    .tile-label input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .tile-face {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #d0d9d4;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--c-teal);
+      background: #f8faf8;
+      transition: all 0.18s;
+      min-height: 48px;
+    }
+    .tile-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 2px solid #c0ccc7;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      transition: all 0.18s;
+    }
+    .tile-label input:checked + .tile-face {
+      background: #edf4f0;
+      border-color: var(--c-green);
+      color: var(--c-dark);
+    }
+    .tile-label input:checked + .tile-face .tile-check {
+      background: var(--c-green);
+      border-color: var(--c-green);
+      color: white;
+    }
+    .tile-label input:checked + .tile-face .tile-check::after { content: 'â'; }
+    .tile-label:hover .tile-face { border-color: var(--c-green); }
+
+    /* Importance matrix */
+    .matrix-table { width: 100%; border-collapse: collapse; }
+    .matrix-table th {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--c-teal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+      border-bottom: 2px solid #e8ede9;
+    }
+    .matrix-table th:first-child { text-align: left; }
+    .matrix-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid #f0f3f1;
+      font-size: 0.9rem;
+      color: var(--c-dark);
+    }
+    .matrix-table td:not(:first-child) { text-align: center; }
+    .matrix-table tr:last-child td { border-bottom: none; }
+    .matrix-table tr:hover td { background: #f8faf8; }
+    .mat-radio { position: relative; cursor: pointer; }
+    .mat-radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .mat-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid #c0ccc7;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+    .mat-radio input:checked + .mat-dot {
+      border-color: var(--c-green);
+      background: var(--c-green);
+    }
+    .mat-radio input:checked + .mat-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: white;
+    }
+    .mat-radio:hover .mat-dot { border-color: var(--c-green); }
+
+    /* Rating scale */
+    .rating-scale {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+    .rate-label { position: relative; cursor: pointer; }
+    .rate-label input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .rate-face {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid #d0d9d4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--c-teal);
+      background: #f8faf8;
+      transition: all 0.18s;
+    }
+    .rate-label input:checked + .rate-face {
+      background: var(--c-green);
+      border-color: var(--c-green);
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(38,85,65,0.3);
+    }
+    .rate-label:hover .rate-face { border-color: var(--c-green); color: var(--c-green); }
+    .rating-legend {
+      display: flex;
+      justify-content: space-between;
+      max-width: 320px;
+      font-size: 0.75rem;
+      color: var(--c-teal);
+      margin-top: 0.5rem;
+    }
+
+    /* Textarea & text inputs */
+    .q-card textarea,
+    .q-card input[type="text"],
+    .q-card input[type="email"],
+    .q-card input[type="tel"] {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border: 2px solid #d0d9d4;
+      border-radius: 8px;
+      font-family: var(--f-body);
+      font-size: 0.95rem;
+      color: var(--c-dark);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #f8faf8;
+      margin-top: 0.25rem;
+    }
+    .q-card textarea:focus,
+    .q-card input:focus {
+      outline: none;
+      border-color: var(--c-green);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(38,85,65,0.12);
+    }
+    .q-card textarea { min-height: 110px; resize: vertical; }
+
+    /* Contact details section */
+    .contact-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 2rem 2.5rem;
+      margin-top: 1rem;
+    }
+    .contact-card-title {
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .contact-card-title span {
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .contact-field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.5px;
+    }
+    .contact-field input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      font-family: var(--f-body);
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-field input::placeholder { color: rgba(255,255,255,0.4); }
+    .contact-field input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Submit bar */
+    .submit-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .submit-note {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.6;
+    }
+    .submit-note strong { color: #ffffff; }
+    .btn-submit {
+      background: var(--c-yellow);
+      color: #ffffff;
+      border: none;
+      padding: 1rem 2.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .btn-submit:hover { background: var(--c-amber); transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* âââ Footer ââââââââââââââââââââââââââââââââââââââââââââââââ */
+    .site-footer {
+      background: var(--c-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 4rem 2rem 2rem;
+    }
+    .site-footer__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+    }
+    .footer-brand .logo-mark {
+      width: 52px;
+      height: 52px;
+      background: var(--c-yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: var(--c-green);
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .footer-brand p { font-size: 0.9rem; max-width: 340px; line-height: 1.7; }
+    .footer-logo-rect {
+      display: inline-flex;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+    .footer-col h4 {
+      color: var(--c-white);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul a {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: rgba(255,255,255,1); }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 3rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+
+    /* âââ Success Message âââââââââââââââââââââââââââââââââââââââ */
+    .success-msg {
+      display: none;
+      background: var(--c-green);
+      color: var(--c-white);
+      padding: 2rem;
+      border-radius: 4px;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .success-msg h3 { color: #ffffff; margin-bottom: 0.5rem; }
+
+    /* âââ Scroll indicator ââââââââââââââââââââââââââââââââââââââ */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .scroll-indicator svg { margin: 0 auto 0.3rem; display: block; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* âââ Responsive â Tablet (â¤900px) ââââââââââââââââââââââââ */
+    @media (max-width: 900px) {
+      /* Layout */
+      .two-col,
+      .two-col.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; }
+      .features-grid   { grid-template-columns: 1fr; }
+      .stats-bar__inner { grid-template-columns: repeat(3,1fr); }
+      .site-footer__inner { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .form-two-col    { grid-template-columns: 1fr; }
+
+      /* Nav â hamburger */
+      .site-nav { display: none; position: relative; }
+      .site-nav.open { display: block; }
+      .menu-toggle { display: flex; }
+      .site-nav ul {
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: -2rem; right: -2rem;
+        background: var(--c-green);
+        padding: 1rem 2rem 1.5rem;
+        gap: 0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      }
+      .site-nav ul li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .site-nav ul li:last-child { border-bottom: none; }
+      .site-nav a {
+        display: block;
+        padding: 0.85rem 0;
+        font-size: 0.9rem;
+      }
+      .nav-cta {
+        margin-top: 0.5rem;
+        display: inline-block;
+        padding: 0.6rem 1.5rem !important;
+        border-radius: 50px;
+      }
+
+      /* Typography */
+      h1 { letter-spacing: 4px; }
+      h2 { font-size: clamp(1.6rem, 4vw, 2.2rem) !important; }
+
+      /* Sections */
+      .section { padding: 4rem 1.5rem; }
+      .form-section { padding: 4rem 1.5rem; }
+      .stats-bar { padding: 2rem 1.5rem; }
+
+      /* Hero */
+      .hero { padding-bottom: 6rem; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero-glass { padding: 1.75rem 1.5rem; border-radius: 12px; }
+
+      /* Columns â image on mobile shows below text */
+      .two-col.reverse .col-text { order: -1; }
+    }
+
+    /* âââ Responsive â Mobile (â¤600px) ââââââââââââââââââââââââ */
+    @media (max-width: 600px) {
+      /* Nav */
+      .site-nav ul { left: -1.5rem; right: -1.5rem; }
+      .site-header { padding: 0 1.5rem; }
+
+      /* Hero */
+      .hero { padding-bottom: 5rem; min-height: 100svh; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero h1 { letter-spacing: 3px; font-size: clamp(1.2rem, 5vw, 1.6rem) !important; }
+      .hero h1 span { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; letter-spacing: 1px; }
+      .hero-btns { flex-direction: column; align-items: stretch; }
+      .hero-btns .btn { text-align: center; }
+      .scroll-indicator { display: none; }
+
+      /* Stats */
+      .stats-bar__inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .stat-item { padding: 0.5rem 0; }
+      .stats-bar { padding: 2.5rem 1.5rem; }
+
+      /* Sections */
+      .section { padding: 3.5rem 1.25rem; }
+      .form-section { padding: 3.5rem 1.25rem; }
+      .welcome-text { font-size: 1rem; }
+      .welcome-img-wrap, .welcome-img { min-height: 260px; }
+
+      /* Features */
+      .feature-card { padding: 1.75rem 1.5rem; }
+      .feature-number { font-size: 2.5rem; }
+
+      /* Leverhulme box */
+      .lev-logo-box { aspect-ratio: auto; padding: 2.5rem 1.5rem; }
+      .lev-logo-text { font-size: 2rem; }
+
+      /* Two-col gap */
+      .two-col { gap: 2rem; }
+
+      /* Form */
+      .q-card { padding: 1.5rem 1.25rem; }
+      .contact-card { padding: 1.5rem 1.25rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .tile-group { grid-template-columns: 1fr 1fr; }
+      .submit-bar { flex-direction: column; align-items: stretch; }
+      .btn-submit { text-align: center; width: 100%; }
+
+      /* Footer */
+      .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+      .site-footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      /* Buttons */
+      .btn { font-size: 0.8rem; padding: 0.8rem 1.5rem; }
+    }
+
+    /* âââ Responsive â Small mobile (â¤380px) âââââââââââââââââââ */
+    @media (max-width: 380px) {
+      .logo-band { padding: 0 1.2rem 0 1.5rem; margin-left: -1.5rem; height: 70px; }
+      .logo-band .logo-img { height: 42px; }
+      h2 { font-size: 1.5rem !important; }
+      .feature-card { padding: 1.25rem 1rem; }
+      .form-box { padding: 1.25rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ââ HEADER âââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <header class="site-header transparent" id="site-header">
+    <div class="site-header__inner">
+      <div class="logo-band">
+        <div class="site-logo">
+          <img
+            class="logo-img"
+            src="leverhulme-logo.png"
+            alt="Leverhulme"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+          >
+          <span class="logo-fallback">Leverhulme</span>
+        </div>
+      </div>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav">
+        <ul>
+          <li><a href="#about">The Site</a></li>
+          <li><a href="#vision">Our Vision</a></li>
+          <li><a href="#features">Key Features</a></li>
+          <li><a href="#leverhulme">About Us</a></li>
+          <li><a href="#feedback" class="nav-cta">Have Your Say</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ââ HERO âââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-glass">
+        <p class="hero-eyebrow">Leverhulme â Pensby Consultation</p>
+        <h1>
+          Have Your Say<br>
+          <span>New Homes in Pensby</span>
+        </h1>
+        <p class="hero-desc">
+          Our proposals for land at Gills Lane will help to meet the local demand for new homes in Pensby â providing a mix of family housing and affordable homes in a convenient, well-connected garden setting.
+        </p>
+        <div class="hero-btns">
+          <a href="#feedback" class="btn btn-primary">Give Your Feedback</a>
+          <a href="#about" class="btn btn-outline">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 3v14M4 11l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ââ STATS BAR âââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <div class="stats-bar">
+    <div class="stats-bar__inner">
+      <div class="stat-item">
+        <span class="stat-number">92</span>
+        <span class="stat-label">High-quality new homes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">32</span>
+        <span class="stat-label">Affordable homes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">1ha</span>
+        <span class="stat-label">Dedicated Green Infrastructure</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ WELCOME âââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section section--white" id="welcome">
+    <div class="section__inner">
+      <div class="two-col welcome-two-col">
+        <div class="col-text">
+          <p class="section-label">Welcome</p>
+          <h2>A New Community for Pensby</h2>
+          <div class="section-divider"></div>
+          <p class="welcome-text">
+            Welcome to our Consultation Website. Our proposals for land at Gills Lane will help to meet the local demand for new homes in Pensby. The development will provide a wide range of family housing and affordable homes in a convenient, well-connected neighbourhood, providing future-proofed, energy-efficient new homes within a sustainable garden setting.
+          </p>
+          <br>
+          <p class="welcome-text">
+            New homes in Pensby will provide more choice for local people and contribute towards addressing the housing shortage. The development will boost the economy, generate jobs and create new opportunities for people to stay in and move to Pensby. <strong>We would like to hear your views</strong> â which will inform the planning application to be submitted to Wirral Council.
+          </p>
+          <a href="#feedback" class="btn btn-primary" style="display:inline-block;margin-top:1.5rem;">Have Your Say</a>
+        </div>
+        <div class="welcome-img-wrap">
+          <img src="welcome-image.jpg" alt="Pensby â aerial view of the site" class="welcome-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="welcome-img-placeholder" style="display:none;">
+            <span>Save your image here as<br><strong>welcome-image.jpg</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ââ ABOUT THE SITE ââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section section--light" id="about">
+    <div class="section__inner">
+      <div class="two-col">
+        <div class="col-text">
+          <p class="section-label">The Pensby Site</p>
+          <h2>About the Site</h2>
+          <div class="section-divider"></div>
+          <p>
+            The site is located to the north of Gills Lane, between existing areas of housing, in Pensby. It is situated in a sustainable location, less than 500 metres from local shops, facilities and services around Pensby Road.
+          </p>
+          <br>
+          <p>
+            This site has been selected as it meets the Government's grey belt planning requirements. It also enables the provision of a range of well-connected new homes that integrate into Pensby's existing landscape and townscape.
+          </p>
+          <br>
+          <a href="#feedback" class="btn btn-primary" style="display:inline-block;margin-top:1rem;">Have Your Say</a>
+        </div>
+        <div class="col-image-wrap">
+          <img src="site-map.jpg" alt="Site location map â Gills Lane, Pensby" class="col-image-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="col-image-placeholder" style="display:none;">
+            <span>Save your map image here as<br><strong>site-map.jpg</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ââ VISION ââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section section--dark" id="vision">
+    <div class="section__inner">
+      <p class="section-label">Our Vision</p>
+      <h2 style="color:var(--c-white);">A Thriving, Multi-Generational Community</h2>
+      <div class="section-divider"></div>
+      <p style="max-width:760px;font-size:1.1rem;color:rgba(255,255,255,0.88);">
+        Our vision is to provide high quality sustainable new homes and integrate an attractive, thriving, multi-generational community into Pensby. We will seek to achieve this by blending a wide range of energy efficient new homes with green space, all within a highly accessible and sustainable location. In this way, we can provide much-needed housing in a way which respects local character and which integrates and connects strongly with its surroundings.
+      </p>
+      <!-- ââ Masterplan flipbook ââ -->
+      <!-- Save your masterplan PDF as masterplan.pdf in the same folder as this file -->
+      <div class="flipbook-wrap">
+
+        <!-- Toolbar -->
+        <div class="flipbook-bar">
+          <span class="bar-label">Draft Masterplan â Gills Lane, Pensby</span>
+          <div class="bar-right">
+            <span class="page-info" id="page-info" style="display:none;">
+              Page <strong id="page-num">1</strong> of <strong id="page-count">â</strong>
+            </span>
+            <button class="zoom-btn" id="zoom-out" title="Zoom out" style="display:none;">â</button>
+            <button class="zoom-btn" id="zoom-in"  title="Zoom in"  style="display:none;">+</button>
+          </div>
+        </div>
+
+        <!-- Canvas area -->
+        <div class="flipbook-viewer" id="flipbook-viewer">
+
+          <!-- Loading spinner (shown while PDF loads) -->
+          <div class="flipbook-loading" id="pdf-loading">
+            <div class="spinner"></div>
+            <span>Loading masterplanâ¦</span>
+          </div>
+
+          <!-- Placeholder shown when masterplan.pdf is not found -->
+          <div class="flipbook-placeholder" id="pdf-placeholder" style="display:none;">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M14 2v6h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <h4>Add your masterplan PDF</h4>
+            <p>Save your masterplan as <code>masterplan.pdf</code> in the same folder as this HTML file and it will appear here as a page-by-page flipbook.</p>
+          </div>
+
+          <!-- The PDF renders here -->
+          <canvas id="pdf-canvas" style="display:none;"></canvas>
+
+          <!-- Prev / Next arrows -->
+          <button class="flip-btn flip-btn--prev" id="btn-prev" disabled style="display:none;" aria-label="Previous page">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="flip-btn flip-btn--next" id="btn-next" disabled style="display:none;" aria-label="Next page">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+        </div><!-- /flipbook-viewer -->
+      </div><!-- /flipbook-wrap -->
+
+      <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;margin-top:0.75rem;text-align:center;">
+        Illustrative masterplan â for indicative purposes only, subject to change.
+      </p>
+    </div>
+  </section>
+
+  <!-- ââ KEY FEATURES ââââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section section--white" id="features">
+    <div class="section__inner">
+      <p class="section-label">Key Features of the Proposal</p>
+      <h2>What We Are Proposing</h2>
+      <div class="section-divider"></div>
+      <!-- Row 1: features 01 & 02 -->
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-number">01</div>
+          <h3>A Diverse Housing Mix</h3>
+          <p>
+            We are proposing 92 total dwellings with a mix designed to cater to all stages of life â including 1 &amp; 2-bed flats (max 2.5 storeys), 2-bed houses, 3-bed houses and 4-bed houses. This ensures a wide range for people renting, first-time buyers, growing and established families, single people, smaller households, retired people and workers.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-number">02</div>
+          <h3>Economic Future-Proofing</h3>
+          <p>
+            We are committed to the provision of sensitively-designed, high quality sustainable homes. All homes will be low-carbon, energy-efficient and designed for long-term value. The construction phase will provide local employment, boost the local economy and ensure a skilled workforce for years to come.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Photo strip between rows -->
+      <div class="feature-photos">
+
+        <!-- Left: sustainable design sketch â sits between feature 01 and 02 -->
+        <div class="feature-photo">
+          <div class="photo-label-top">01 â A Diverse Housing Mix</div>
+          <img src="feature-photo-2.jpg"
+               alt="Sustainable design sketch"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="photo-placeholder" style="display:none;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Save as <strong>feature-photo-2.jpg</strong></span>
+          </div>
+          <div class="photo-label-bottom">03 â Greenery, Space &amp; Biodiversity</div>
+        </div>
+
+        <!-- Right: field / flowers photo â sits before feature 03 -->
+        <div class="feature-photo">
+          <div class="photo-label-top">02 â Economic Future-Proofing</div>
+          <img src="feature-photo-3.jpg"
+               alt="Green field with wildflowers"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="photo-placeholder" style="display:none;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Save as <strong>feature-photo-3.jpg</strong></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: features 03 & 04 -->
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-number">03</div>
+          <h3>Greenery, Space &amp; Biodiversity</h3>
+          <p>
+            Sustainability and quality lies at the heart of our proposals. We will transform private land into a green and spacious new community, including safe and high-quality space for children to play and to connect with nature and new habitats. The development will achieve Biodiversity Net Gain Ã¢ÂÂ enhancing local biodiversity.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-number">04</div>
+          <h3>Access, Transport &amp; Connectivity</h3>
+          <p>
+            The site's highly sustainable location enables the prioritisation of active travel â promoting safe pedestrian access to local services and public transport â helping to ensure that the development provides for strong local connections, supports the wider community's needs and encourages active lifestyles.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ââ ABOUT LEVERHULME ââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="section section--light" id="leverhulme">
+    <div class="section__inner">
+      <div class="two-col reverse">
+        <div class="col-text">
+          <p class="section-label">About Leverhulme</p>
+          <h2>Over 130 Years of Wirral Life</h2>
+          <div class="section-divider"></div>
+          <p>
+            Leverhulme has been part of the fabric of Wirral life for over 130 years. The 1st Viscount Leverhulme had the vision for Port Sunlight â to this day still used as an example of model village excellence.
+          </p>
+          <br>
+          <p>
+            Today's Leverhulme encompasses diverse places hosting farms, homes, commercial operations, communities and more. Leverhulme aims to create and sustain environments where people can live happy, healthy and fulfilled lives.
+          </p>
+        </div>
+        <div class="lev-photo-wrap">
+          <img src="feature-photo-1.jpg" alt="New homes â Pensby development"
+               class="lev-photo-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="lev-photo-placeholder" style="display:none;">
+            <span>Save your houses photo as<br><strong>feature-photo-1.jpg</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ââ FEEDBACK FORM âââââââââââââââââââââââââââââââââââââââââââ -->
+  <section class="form-section" id="feedback">
+    <div class="form-section__inner">
+
+      <p class="section-label">Have Your Say</p>
+      <h2>Feedback Form</h2>
+      <div class="section-divider"></div>
+      <p>We want to hear from you. Your feedback will directly inform the planning application to be submitted to Wirral Council. Please complete the form below by <strong style="color:#fff;">1 June 2026</strong>.</p>
+
+      <!-- Privacy notice -->
+      <div class="privacy-banner" style="margin-top:2rem;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 2L3 5v5c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V5l-7-3z" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M7 10l2 2 4-4" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span><strong>Privacy:</strong> Personal data is used solely for this consultation and held securely under UK GDPR. It will not be shared with third parties without your consent.</span>
+      </div>
+
+      <!-- Connected to Google Form: Pensby Consultation -->
+      <iframe name="google-form-target" style="display:none;"></iframe>
+      <form id="feedback-form"
+            action="https://docs.google.com/forms/d/e/PENSBY_FORM_ID/formResponse"
+            method="POST"
+            target="google-form-target"
+            style="margin-top:1.5rem;">
+
+        <!-- Q1 -->
+        <div class="q-card">
+          <div class="q-header">
+            <div class="q-num">1</div>
+            <div class="q-text">Do you agree that more houses are needed in the area?</div>
+          </div>
+          <div class="pill-group">
+            <label class="pill-label"><input type="radio" name="entry.1183505947" value="Yes"><span class="pill-face">Yes</span></label>
+            <label class="pill-label"><input type="radio" name="entry.1183505947" value="No"><span class="pill-face">No</span></label>
+            <label class="pill-label"><input type="radio" name="entry.1183505947" value="Unsure"><span class="pill-face">Unsure</span></label>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card">
+          <div class="q-header">
+            <div class="q-num">2</div>
+            <div class="q-text">Do you agree that grey belt development provides a sustainable solution for meeting Wirral's housing needs?</div>
+          </div>
+          <div class="pill-group">
+            <label class="pill-label"><input type="radio" name="entry.892973453" value="Yes"><span class="pill-face">Yes</span></label>
+            <label class="pill-label"><input type="radio" name="entry.892973453" value="No"><span class="pill-face">No</span></label>
+            <label class="pill-label"><input type="radio" name="entry.892973453" value="Unsure"><span class="pill-face">Unsure</span></label>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card">
+          <div class="q-header">
+            <div class="q-num">3</div>
+            <div class="q-text">
+              Where homes are built, how important are the following to you?
+              <span class="q-hint">Select one option per row</span>
+            </div>
+          </div>
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Important</th>
+                <th>Not Important</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Energy efficient homes</td>
+                <td><label class="mat-radio"><input type="radio" name="entry.732976781" value="Important"><span class="mat-dot"></span></label></td>
+                <td><label class="mat-radio"><input type="radio" name="entry.732976781" value="Not Important"><span class="mat-dot"></span></label></td>
+              </tr>
+              <tr>
+                <td>New accessible green space</td>
+                <td><label class="mat-radio"><input type="radio" name="entry.1617460097" value="Important"><span class="mat-dot"></span></label></td>
+                <td><label class="mat-radio"><input type="radio" name="entry.1617460097" value="Not Important"><span class="mat-dot"></span></label></td>
+              </tr>
+              <tr>
+                <td>Accessibility to public transport</td>
+                <td><label class="mat-radio"><input type="radio" name="entry.580822805" value="Important"><span class="mat-dot"></span></label></td>
+                <td><label class="mat-radio"><input type="radio" name="entry.580822805" value="Not Important"><span class="mat-dot"></span></label></td>
+              </tr>
+              <tr>
+                <td>Contribution to local economy</td>
+                <td><label class="mat-radio"><input type="radio" name="entry.1512626337" value="Important"><span class="mat-dot"></span></label></td>
+                <td><label class="mat-radio"><input type="radio" name="entry.1512626337" value="Not Important"><span class="mat-dot"></span></label></td>
+              </tr>
+              <tr>
+                <td>Choice to buy or rent</td>
+                <td><label class="mat-radio"><input type="radio" name="entry.CHOICE_ENTRY_ID" value="Important"><span class="mat-dot"></span></label></td>
+                <td><label class="mat-radio"><input type="radio" name="entry.CHOICE_ENTRY_ID" value="Not Important"><span class="mat-dot"></span></label></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card">
+          <div class="q-header">
+            <div class="q-num">4</div>
+            <div class="q-text">
+              Which elements of this proposal do you think are beneficial to Pensby?
+              <span class="q-hint">Tick as many as apply</span>
+            </div>
+          </div>
+          <div class="tile-group">
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="Affordable housing"><span class="tile-face"><span class="tile-check"></span>Affordable housing</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="Homes for families"><span class="tile-face"><span class="tile-check"></span>Homes for families</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="Homes for single people"><span class="tile-face"><span class="tile-check"></span>Homes for single people</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="First time buyer homes"><span class="tile-face"><span class="tile-check"></span>First time buyer homes</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="New public green space"><span class="tile-face"><span class="tile-check"></span>New public green space</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="Biodiversity gains"><span class="tile-face"><span class="tile-check"></span>Biodiversity gains</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="Boosting local economy"><span class="tile-face"><span class="tile-check"></span>Boosting local economy</span></label>
+            <label class="tile-label"><input type="checkbox" name="entry.473665903" value="None of the above"><span class="tile-face"><span class="tile-check"></span>None of the above</span></label>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-card">
+          <div class="q-header">
+            <div class="q-num">5</div>
+            <div class="q-text">
+              Overall, what are your thoughts about this proposal?
+              <span class="q-hint">Select a rating from 1 (very negative) to 5 (very positive)</span>
+            </div>
+          </div>
+          <div class="rating-scale">
+            <label class="rate-label"><input type="radio" name="entry.1382038137" value="1"><span class="rate-face">1</span></label>
+            <label class="rate-label"><input type="radio" name="entry.1382038137" value="2"><span class="rate-face">2</span></label>
+            <label class="rate-label"><input type="radio" name="entry.1382038137" value="3"><span class="rate-face">3</span></label>
+            <label class="rate-label"><input type="radio" name="entry.1382038137" value="4"><span class="rate-face">4</span></label>
+            <label class="rate-label"><input type="radio" name="entry.1382038137" value="5"><span class="rate-face">5</span></label>
+          </div>
+          <div class="rating-legend">
+            <span>1 â Very negative</span>
+            <span>5 â Very positive</span>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-card">
+          <div class="q-header">
+            <div class="q-num">6</div>
+            <div class="q-text">Do you have any other comments on the proposal?</div>
+          </div>
+          <textarea name="entry.1749490072" placeholder="Please share any additional thoughts, concerns or suggestions hereâ¦"></textarea>
+        </div>
+
+        <!-- Contact details -->
+        <div class="contact-card">
+          <div class="contact-card-title">
+            Your Contact Details
+            <span>(Optional)</span>
+          </div>
+          <div class="contact-grid">
+            <div class="contact-field">
+              <label>First Name</label>
+              <input type="text" name="entry.1542893470" placeholder="First name">
+            </div>
+            <div class="contact-field">
+              <label>Last Name</label>
+              <input type="text" name="entry.761665891" placeholder="Last name">
+            </div>
+            <div class="contact-field">
+              <label>Email Address</label>
+              <input type="email" name="entry.1537837070" placeholder="your@email.com">
+            </div>
+            <div class="contact-field">
+              <label>Phone Number</label>
+              <input type="tel" name="entry.1524621906" placeholder="Optional">
+            </div>
+            <div class="contact-field">
+              <label>Postcode</label>
+              <input type="text" name="entry.690907097" placeholder="e.g. CH60 1AB">
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-bar">
+          <p class="submit-note">Please submit your response by <strong>1 June 2026</strong>.<br>Thank you for taking part in this consultation.</p>
+          <button type="submit" class="btn-submit">Submit Feedback â</button>
+        </div>
+
+      </form>
+
+      <!-- Success message -->
+      <div class="success-msg" id="success-msg" style="margin-top:1.5rem;border-radius:10px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.3);">
+        <h3 style="color:#ffffff;margin-bottom:0.75rem;">Thank you for your feedback!</h3>
+        <p style="color:rgba(255,255,255,0.85);">Your response has been recorded. We will consider all feedback carefully as we develop our proposals for Pensby.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ââ FOOTER ââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="footer-brand">
+        <div class="footer-logo-rect">
+          <img src="leverhulme-logo.png" alt="Leverhulme" style="height:60px;width:auto;" onerror="this.style.display='none'">
+        </div>
+        <p>Leverhulme has been part of the fabric of Wirral life for over 130 years, creating and sustaining environments where people can live happy, healthy and fulfilled lives.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">The Site</a></li>
+          <li><a href="#vision">Our Vision</a></li>
+          <li><a href="#features">Key Features</a></li>
+          <li><a href="#leverhulme">About Leverhulme</a></li>
+          <li><a href="#feedback">Have Your Say</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:pensby@publicconsultation.uk">pensby@publicconsultation.uk</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 <a href="https://publicconsultation.uk" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">publicconsultation.uk</a>. All rights reserved.</span>
+      <span>New Homes in Pensby â Public Consultation</span>
+    </div>
+  </footer>
+
+  <!-- ââ JAVASCRIPT ââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <script>
+    // Sticky header
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        header.classList.remove('transparent');
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+        header.classList.add('transparent');
+      }
+    });
+
+    // Mobile menu toggle
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('site-nav');
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+    });
+
+    // Form submit â let the form POST to the hidden iframe (Google Forms),
+    // then show the thank-you message after a short delay.
+    document.getElementById('feedback-form').addEventListener('submit', function() {
+      const form = this;
+      setTimeout(function() {
+        form.style.display = 'none';
+        const msg = document.getElementById('success-msg');
+        msg.style.display = 'block';
+        window.scrollTo({ top: document.getElementById('feedback').offsetTop - 100, behavior: 'smooth' });
+      }, 800);
+      // Do NOT call e.preventDefault() â the form must actually submit to Google
+    });
+
+    // Smooth anchor links (close mobile nav)
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+      });
+    });
+
+    // ââ PDF.js Masterplan Flipbook ââââââââââââââââââââââââââââââ
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      let pdfDoc = null, currentPage = 1, scale = 1.5, rendering = false;
+      const canvas      = document.getElementById('pdf-canvas');
+      const ctx         = canvas.getContext('2d');
+      const loading     = document.getElementById('pdf-loading');
+      const placeholder = document.getElementById('pdf-placeholder');
+      const pageNum     = document.getElementById('page-num');
+      const pageCount   = document.getElementById('page-count');
+      const pageInfo    = document.getElementById('page-info');
+      const btnPrev     = document.getElementById('btn-prev');
+      const btnNext     = document.getElementById('btn-next');
+      const zoomIn      = document.getElementById('zoom-in');
+      const zoomOut     = document.getElementById('zoom-out');
+      const viewer      = document.getElementById('flipbook-viewer');
+
+      function renderPage(n) {
+        if (rendering) return;
+        rendering = true;
+        pdfDoc.getPage(n).then(page => {
+          // Fit canvas to viewer width
+          const viewerWidth = viewer.clientWidth || 800;
+          const baseVp = page.getViewport({ scale: 1 });
+          const fitScale = Math.min(scale, (viewerWidth - 32) / baseVp.width);
+          const vp = page.getViewport({ scale: fitScale * scale / 1.5 });
+          canvas.width  = vp.width;
+          canvas.height = vp.height;
+          page.render({ canvasContext: ctx, viewport: vp }).promise.then(() => {
+            rendering = false;
+            pageNum.textContent  = n;
+            btnPrev.disabled = n <= 1;
+            btnNext.disabled = n >= pdfDoc.numPages;
+          });
+        });
+      }
+
+      pdfjsLib.getDocument('masterplan.pdf').promise.then(pdf => {
+        pdfDoc = pdf;
+        loading.style.display      = 'none';
+        canvas.style.display       = 'block';
+        btnPrev.style.display      = 'flex';
+        btnNext.style.display      = 'flex';
+        pageInfo.style.display     = 'inline-flex';
+        zoomIn.style.display       = 'inline-flex';
+        zoomOut.style.display      = 'inline-flex';
+        pageCount.textContent      = pdf.numPages;
+        renderPage(1);
+      }).catch(() => {
+        loading.style.display      = 'none';
+        placeholder.style.display  = 'flex';
+      });
+
+      btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) renderPage(--currentPage);
+      });
+      btnNext.addEventListener('click', () => {
+        if (pdfDoc && currentPage < pdfDoc.numPages) renderPage(++currentPage);
+      });
+      zoomIn.addEventListener('click', () => {
+        scale = Math.min(scale + 0.25, 3);
+        renderPage(currentPage);
+      });
+      zoomOut.addEventListener('click', () => {
+        scale = Math.max(scale - 0.25, 0.5);
+        renderPage(currentPage);
+      });
+
+      // Re-render on window resize to keep it fitting the viewer
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (pdfDoc) renderPage(currentPage);
+        }, 200);
+      });
+    }
+  </script>
+</body>
+</html>
