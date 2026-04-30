@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>New Homes in Pensby â Leverhulme Consultation</title>
-  <!-- PDF.js â renders the masterplan PDF as a page-by-page flipbook -->
+  <title>New Homes in Pensby – Leverhulme Consultation</title>
+  <!-- PDF.js — renders the masterplan PDF as a page-by-page flipbook -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    /* âââ CSS Variables âââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── CSS Variables ───────────────────────────────────────── */
     :root {
       --c-dark:       #1a1a2e;
       --c-green:      #265541;
@@ -26,7 +26,7 @@
       --f-head:       'Playfair Display', serif;
     }
 
-    /* âââ Reset & Base ââââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Reset & Base ────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -38,7 +38,7 @@
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
 
-    /* âââ Typography ââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Typography ──────────────────────────────────────────── */
     h1 {
       font-family: var(--f-body);
       font-weight: 500;
@@ -62,7 +62,7 @@
     }
     p { font-size: 1rem; line-height: 1.8; }
 
-    /* âââ Header ââââââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Header ──────────────────────────────────────────────── */
     .site-header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -167,7 +167,7 @@
       transition: all 0.3s;
     }
 
-    /* âââ Hero ââââââââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Hero ────────────────────────────────────────────────── */
     .hero {
       min-height: 100vh;
       position: relative;
@@ -186,7 +186,7 @@
           rgba(9,43,50,0.25) 40%,
           rgba(9,43,50,0.88) 100%),
         url("hero-image.jpg") center/cover no-repeat;
-      /* â Save your photo as hero-image.jpg in the same folder as this file */
+      /* ↑ Save your photo as hero-image.jpg in the same folder as this file */
       background-color: var(--c-green); /* fallback colour while image loads */
     }
     .hero-content {
@@ -269,7 +269,7 @@
       color: var(--c-green);
     }
 
-    /* âââ Stats Bar âââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Stats Bar ───────────────────────────────────────────── */
     .stats-bar {
       background: var(--c-yellow);
       padding: 2.5rem 2rem;
@@ -299,7 +299,7 @@
       margin-top: 0.4rem;
     }
 
-    /* âââ Section Wrapper âââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Section Wrapper ─────────────────────────────────────── */
     .section { padding: 6rem 2rem; }
     .section__inner {
       max-width: 1280px;
@@ -320,7 +320,7 @@
       font-weight: 700;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--c-amber);   /* burgundy on light bg â good contrast */
+      color: var(--c-amber);   /* burgundy on light bg – good contrast */
       margin-bottom: 0.8rem;
     }
     .section--dark .section-label { color: rgba(255,255,255,0.7); }
@@ -332,7 +332,7 @@
     }
     .section--dark .section-divider { background: rgba(255,255,255,0.35); }
 
-    /* âââ Two-column layout âââââââââââââââââââââââââââââââââââââ */
+    /* ─── Two-column layout ───────────────────────────────────── */
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -373,7 +373,7 @@
     }
     .col-image svg { width: 100%; height: 100%; }
 
-    /* âââ Welcome Section âââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Welcome Section ─────────────────────────────────────── */
     .welcome-text { font-size: 1.15rem; }
     .welcome-two-col { align-items: center; }
     .welcome-img-wrap {
@@ -402,7 +402,7 @@
       padding: 2rem;
     }
 
-    /* âââ Feature Cards âââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Feature Cards ───────────────────────────────────────── */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -427,7 +427,7 @@
     .feature-card h3 { margin-bottom: 1rem; color: var(--c-green); }
     .feature-card p { font-size: 0.95rem; color: var(--c-teal); }
 
-    /* âââ Feature photo row âââââââââââââââââââââââââââââââââââââ */
+    /* ─── Feature photo row ───────────────────────────────────── */
     .feature-photos {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -487,7 +487,7 @@
       .feature-photos { grid-template-columns: 1fr; gap: 1rem; }
     }
 
-    /* âââ Masterplan flipbook âââââââââââââââââââââââââââââââââââ */
+    /* ─── Masterplan flipbook ─────────────────────────────────── */
     .flipbook-wrap {
       margin-top: 3rem;
       border-radius: 10px;
@@ -626,7 +626,7 @@
       .flip-btn--next { right: 0.4rem; }
     }
 
-    /* âââ About Leverhulme ââââââââââââââââââââââââââââââââââââââ */
+    /* ─── About Leverhulme ────────────────────────────────────── */
     .lev-photo-wrap {
       border-radius: 10px;
       overflow: hidden;
@@ -672,7 +672,7 @@
       margin-top: 0.5rem;
     }
 
-    /* âââ Feedback Form âââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Feedback Form ───────────────────────────────────────── */
     .form-section {
       background: var(--c-green);
       padding: 6rem 2rem;
@@ -779,7 +779,7 @@
       color: var(--c-green);
     }
     .pill-label input:checked + .pill-face::before {
-      content: 'â ';
+      content: '✓ ';
       font-size: 0.8rem;
     }
 
@@ -830,7 +830,7 @@
       border-color: var(--c-green);
       color: white;
     }
-    .tile-label input:checked + .tile-face .tile-check::after { content: 'â'; }
+    .tile-label input:checked + .tile-face .tile-check::after { content: '✓'; }
     .tile-label:hover .tile-face { border-color: var(--c-green); }
 
     /* Importance matrix */
@@ -1037,7 +1037,7 @@
     .btn-submit:hover { background: var(--c-amber); transform: translateY(-1px); }
     .btn-submit:active { transform: translateY(0); }
 
-    /* âââ Footer ââââââââââââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Footer ──────────────────────────────────────────────── */
     .site-footer {
       background: var(--c-dark);
       color: rgba(255,255,255,0.7);
@@ -1102,7 +1102,7 @@
       font-size: 0.8rem;
     }
 
-    /* âââ Success Message âââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Success Message ─────────────────────────────────────── */
     .success-msg {
       display: none;
       background: var(--c-green);
@@ -1114,7 +1114,7 @@
     }
     .success-msg h3 { color: #ffffff; margin-bottom: 0.5rem; }
 
-    /* âââ Scroll indicator ââââââââââââââââââââââââââââââââââââââ */
+    /* ─── Scroll indicator ────────────────────────────────────── */
     .scroll-indicator {
       position: absolute;
       bottom: 2rem;
@@ -1133,7 +1133,7 @@
       50% { transform: translateX(-50%) translateY(8px); }
     }
 
-    /* âââ Responsive â Tablet (â¤900px) ââââââââââââââââââââââââ */
+    /* ─── Responsive — Tablet (≤900px) ──────────────────────── */
     @media (max-width: 900px) {
       /* Layout */
       .two-col,
@@ -1143,7 +1143,7 @@
       .site-footer__inner { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
       .form-two-col    { grid-template-columns: 1fr; }
 
-      /* Nav â hamburger */
+      /* Nav — hamburger */
       .site-nav { display: none; position: relative; }
       .site-nav.open { display: block; }
       .menu-toggle { display: flex; }
@@ -1185,11 +1185,11 @@
       .hero-content { padding: 0 1.5rem; }
       .hero-glass { padding: 1.75rem 1.5rem; border-radius: 12px; }
 
-      /* Columns â image on mobile shows below text */
+      /* Columns — image on mobile shows below text */
       .two-col.reverse .col-text { order: -1; }
     }
 
-    /* âââ Responsive â Mobile (â¤600px) ââââââââââââââââââââââââ */
+    /* ─── Responsive — Mobile (≤600px) ──────────────────────── */
     @media (max-width: 600px) {
       /* Nav */
       .site-nav ul { left: -1.5rem; right: -1.5rem; }
@@ -1243,7 +1243,7 @@
       .btn { font-size: 0.8rem; padding: 0.8rem 1.5rem; }
     }
 
-    /* âââ Responsive â Small mobile (â¤380px) âââââââââââââââââââ */
+    /* ─── Responsive — Small mobile (≤380px) ─────────────────── */
     @media (max-width: 380px) {
       .logo-band { padding: 0 1.2rem 0 1.5rem; margin-left: -1.5rem; height: 70px; }
       .logo-band .logo-img { height: 42px; }
@@ -1255,7 +1255,7 @@
 </head>
 <body>
 
-  <!-- ââ HEADER âââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── HEADER ───────────────────────────────────────────────── -->
   <header class="site-header transparent" id="site-header">
     <div class="site-header__inner">
       <div class="logo-band">
@@ -1284,18 +1284,18 @@
     </div>
   </header>
 
-  <!-- ââ HERO âââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
   <section class="hero" id="home">
     <div class="hero-bg"></div>
     <div class="hero-content">
       <div class="hero-glass">
-        <p class="hero-eyebrow">Leverhulme â Pensby Consultation</p>
+        <p class="hero-eyebrow">Leverhulme — Pensby Consultation</p>
         <h1>
           Have Your Say<br>
           <span>New Homes in Pensby</span>
         </h1>
         <p class="hero-desc">
-          Our proposals for land at Gills Lane will help to meet the local demand for new homes in Pensby â providing a mix of family housing and affordable homes in a convenient, well-connected garden setting.
+          Our proposals for land at Gills Lane will help to meet the local demand for new homes in Pensby — providing a mix of family housing and affordable homes in a convenient, well-connected garden setting.
         </p>
         <div class="hero-btns">
           <a href="#feedback" class="btn btn-primary">Give Your Feedback</a>
@@ -1311,7 +1311,7 @@
     </div>
   </section>
 
-  <!-- ââ STATS BAR âââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── STATS BAR ─────────────────────────────────────────────── -->
   <div class="stats-bar">
     <div class="stats-bar__inner">
       <div class="stat-item">
@@ -1329,7 +1329,7 @@
     </div>
   </div>
 
-  <!-- ââ WELCOME âââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── WELCOME ───────────────────────────────────────────────── -->
   <section class="section section--white" id="welcome">
     <div class="section__inner">
       <div class="two-col welcome-two-col">
@@ -1342,12 +1342,12 @@
           </p>
           <br>
           <p class="welcome-text">
-            New homes in Pensby will provide more choice for local people and contribute towards addressing the housing shortage. The development will boost the economy, generate jobs and create new opportunities for people to stay in and move to Pensby. <strong>We would like to hear your views</strong> â which will inform the planning application to be submitted to Wirral Council.
+            New homes in Pensby will provide more choice for local people and contribute towards addressing the housing shortage. The development will boost the economy, generate jobs and create new opportunities for people to stay in and move to Pensby. <strong>We would like to hear your views</strong> – which will inform the planning application to be submitted to Wirral Council.
           </p>
           <a href="#feedback" class="btn btn-primary" style="display:inline-block;margin-top:1.5rem;">Have Your Say</a>
         </div>
         <div class="welcome-img-wrap">
-          <img src="welcome-image.jpg" alt="Pensby â aerial view of the site" class="welcome-img"
+          <img src="welcome-image.jpg" alt="Pensby — aerial view of the site" class="welcome-img"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="welcome-img-placeholder" style="display:none;">
             <span>Save your image here as<br><strong>welcome-image.jpg</strong></span>
@@ -1357,7 +1357,7 @@
     </div>
   </section>
 
-  <!-- ââ ABOUT THE SITE ââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── ABOUT THE SITE ────────────────────────────────────────── -->
   <section class="section section--light" id="about">
     <div class="section__inner">
       <div class="two-col">
@@ -1376,7 +1376,7 @@
           <a href="#feedback" class="btn btn-primary" style="display:inline-block;margin-top:1rem;">Have Your Say</a>
         </div>
         <div class="col-image-wrap">
-          <img src="site-map.jpg" alt="Site location map â Gills Lane, Pensby" class="col-image-img"
+          <img src="site-map.jpg" alt="Site location map — Gills Lane, Pensby" class="col-image-img"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="col-image-placeholder" style="display:none;">
             <span>Save your map image here as<br><strong>site-map.jpg</strong></span>
@@ -1386,7 +1386,7 @@
     </div>
   </section>
 
-  <!-- ââ VISION ââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── VISION ────────────────────────────────────────────────── -->
   <section class="section section--dark" id="vision">
     <div class="section__inner">
       <p class="section-label">Our Vision</p>
@@ -1395,18 +1395,18 @@
       <p style="max-width:760px;font-size:1.1rem;color:rgba(255,255,255,0.88);">
         Our vision is to provide high quality sustainable new homes and integrate an attractive, thriving, multi-generational community into Pensby. We will seek to achieve this by blending a wide range of energy efficient new homes with green space, all within a highly accessible and sustainable location. In this way, we can provide much-needed housing in a way which respects local character and which integrates and connects strongly with its surroundings.
       </p>
-      <!-- ââ Masterplan flipbook ââ -->
+      <!-- ── Masterplan flipbook ── -->
       <!-- Save your masterplan PDF as masterplan.pdf in the same folder as this file -->
       <div class="flipbook-wrap">
 
         <!-- Toolbar -->
         <div class="flipbook-bar">
-          <span class="bar-label">Draft Masterplan â Gills Lane, Pensby</span>
+          <span class="bar-label">Draft Masterplan — Gills Lane, Pensby</span>
           <div class="bar-right">
             <span class="page-info" id="page-info" style="display:none;">
-              Page <strong id="page-num">1</strong> of <strong id="page-count">â</strong>
+              Page <strong id="page-num">1</strong> of <strong id="page-count">—</strong>
             </span>
-            <button class="zoom-btn" id="zoom-out" title="Zoom out" style="display:none;">â</button>
+            <button class="zoom-btn" id="zoom-out" title="Zoom out" style="display:none;">−</button>
             <button class="zoom-btn" id="zoom-in"  title="Zoom in"  style="display:none;">+</button>
           </div>
         </div>
@@ -1417,7 +1417,7 @@
           <!-- Loading spinner (shown while PDF loads) -->
           <div class="flipbook-loading" id="pdf-loading">
             <div class="spinner"></div>
-            <span>Loading masterplanâ¦</span>
+            <span>Loading masterplan…</span>
           </div>
 
           <!-- Placeholder shown when masterplan.pdf is not found -->
@@ -1445,12 +1445,12 @@
       </div><!-- /flipbook-wrap -->
 
       <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;margin-top:0.75rem;text-align:center;">
-        Illustrative masterplan â for indicative purposes only, subject to change.
+        Illustrative masterplan — for indicative purposes only, subject to change.
       </p>
     </div>
   </section>
 
-  <!-- ââ KEY FEATURES ââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── KEY FEATURES ──────────────────────────────────────────── -->
   <section class="section section--white" id="features">
     <div class="section__inner">
       <p class="section-label">Key Features of the Proposal</p>
@@ -1463,7 +1463,7 @@
           <div class="feature-number">01</div>
           <h3>A Diverse Housing Mix</h3>
           <p>
-            We are proposing 92 total dwellings with a mix designed to cater to all stages of life â including 1 &amp; 2-bed flats (max 2.5 storeys), 2-bed houses, 3-bed houses and 4-bed houses. This ensures a wide range for people renting, first-time buyers, growing and established families, single people, smaller households, retired people and workers.
+            We are proposing 92 total dwellings with a mix designed to cater to all stages of life — including 1 &amp; 2-bed flats (max 2.5 storeys), 2-bed houses, 3-bed houses and 4-bed houses. This ensures a wide range for people renting, first-time buyers, growing and established families, single people, smaller households, retired people and workers.
           </p>
         </div>
 
@@ -1480,9 +1480,9 @@
       <!-- Photo strip between rows -->
       <div class="feature-photos">
 
-        <!-- Left: sustainable design sketch â sits between feature 01 and 02 -->
+        <!-- Left: sustainable design sketch — sits between feature 01 and 02 -->
         <div class="feature-photo">
-          <div class="photo-label-top">01 â A Diverse Housing Mix</div>
+          <div class="photo-label-top">01 — A Diverse Housing Mix</div>
           <img src="feature-photo-2.jpg"
                alt="Sustainable design sketch"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -1490,12 +1490,12 @@
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M21 15l-5-5L5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>Save as <strong>feature-photo-2.jpg</strong></span>
           </div>
-          <div class="photo-label-bottom">03 â Greenery, Space &amp; Biodiversity</div>
+          <div class="photo-label-bottom">03 — Greenery, Space &amp; Biodiversity</div>
         </div>
 
-        <!-- Right: field / flowers photo â sits before feature 03 -->
+        <!-- Right: field / flowers photo — sits before feature 03 -->
         <div class="feature-photo">
-          <div class="photo-label-top">02 â Economic Future-Proofing</div>
+          <div class="photo-label-top">02 — Economic Future-Proofing</div>
           <img src="feature-photo-3.jpg"
                alt="Green field with wildflowers"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -1514,7 +1514,7 @@
           <div class="feature-number">03</div>
           <h3>Greenery, Space &amp; Biodiversity</h3>
           <p>
-            Sustainability and quality lies at the heart of our proposals. We will transform private land into a green and spacious new community, including safe and high-quality space for children to play and to connect with nature and new habitats. The development will achieve Biodiversity Net Gain Ã¢ÂÂ enhancing local biodiversity.
+            Sustainability and quality lies at the heart of our proposals. We will transform private land into a green and spacious new community, including safe and high-quality space for children to play and to connect with nature and new habitats. The development will achieve Biodiversity Net Gain — enhancing local biodiversity.
           </p>
         </div>
 
@@ -1522,7 +1522,7 @@
           <div class="feature-number">04</div>
           <h3>Access, Transport &amp; Connectivity</h3>
           <p>
-            The site's highly sustainable location enables the prioritisation of active travel â promoting safe pedestrian access to local services and public transport â helping to ensure that the development provides for strong local connections, supports the wider community's needs and encourages active lifestyles.
+            The site’s highly sustainable location enables the prioritisation of active travel — promoting safe pedestrian access to local services and public transport — helping to ensure that the development provides for strong local connections, supports the wider community’s needs and encourages active lifestyles.
           </p>
         </div>
 
@@ -1530,7 +1530,7 @@
     </div>
   </section>
 
-  <!-- ââ ABOUT LEVERHULME ââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── ABOUT LEVERHULME ──────────────────────────────────────── -->
   <section class="section section--light" id="leverhulme">
     <div class="section__inner">
       <div class="two-col reverse">
@@ -1539,7 +1539,7 @@
           <h2>Over 130 Years of Wirral Life</h2>
           <div class="section-divider"></div>
           <p>
-            Leverhulme has been part of the fabric of Wirral life for over 130 years. The 1st Viscount Leverhulme had the vision for Port Sunlight â to this day still used as an example of model village excellence.
+            Leverhulme has been part of the fabric of Wirral life for over 130 years. The 1st Viscount Leverhulme had the vision for Port Sunlight — to this day still used as an example of model village excellence.
           </p>
           <br>
           <p>
@@ -1547,7 +1547,7 @@
           </p>
         </div>
         <div class="lev-photo-wrap">
-          <img src="feature-photo-1.jpg" alt="New homes â Pensby development"
+          <img src="feature-photo-1.jpg" alt="New homes — Pensby development"
                class="lev-photo-img"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="lev-photo-placeholder" style="display:none;">
@@ -1558,7 +1558,7 @@
     </div>
   </section>
 
-  <!-- ââ FEEDBACK FORM âââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── FEEDBACK FORM ─────────────────────────────────────────── -->
   <section class="form-section" id="feedback">
     <div class="form-section__inner">
 
@@ -1695,8 +1695,8 @@
             <label class="rate-label"><input type="radio" name="entry.1382038137" value="5"><span class="rate-face">5</span></label>
           </div>
           <div class="rating-legend">
-            <span>1 â Very negative</span>
-            <span>5 â Very positive</span>
+            <span>1 — Very negative</span>
+            <span>5 — Very positive</span>
           </div>
         </div>
 
@@ -1706,7 +1706,7 @@
             <div class="q-num">6</div>
             <div class="q-text">Do you have any other comments on the proposal?</div>
           </div>
-          <textarea name="entry.1749490072" placeholder="Please share any additional thoughts, concerns or suggestions hereâ¦"></textarea>
+          <textarea name="entry.1749490072" placeholder="Please share any additional thoughts, concerns or suggestions here…"></textarea>
         </div>
 
         <!-- Contact details -->
@@ -1742,7 +1742,7 @@
         <!-- Submit -->
         <div class="submit-bar">
           <p class="submit-note">Please submit your response by <strong>1 June 2026</strong>.<br>Thank you for taking part in this consultation.</p>
-          <button type="submit" class="btn-submit">Submit Feedback â</button>
+          <button type="submit" class="btn-submit">Submit Feedback →</button>
         </div>
 
       </form>
@@ -1756,7 +1756,7 @@
     </div>
   </section>
 
-  <!-- ââ FOOTER ââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── FOOTER ────────────────────────────────────────────────── -->
   <footer class="site-footer">
     <div class="site-footer__inner">
       <div class="footer-brand">
@@ -1785,12 +1785,12 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 <a href="https://publicconsultation.uk" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">publicconsultation.uk</a>. All rights reserved.</span>
-      <span>New Homes in Pensby â Public Consultation</span>
+      <span>&copy; 2026 PublicConsultation.UK. All rights reserved.</span>
+      <span>New Homes in Pensby — Public Consultation</span>
     </div>
   </footer>
 
-  <!-- ââ JAVASCRIPT ââââââââââââââââââââââââââââââââââââââââââââââ -->
+  <!-- ── JAVASCRIPT ────────────────────────────────────────────── -->
   <script>
     // Sticky header
     const header = document.getElementById('site-header');
@@ -1811,7 +1811,7 @@
       nav.classList.toggle('open');
     });
 
-    // Form submit â let the form POST to the hidden iframe (Google Forms),
+    // Form submit — let the form POST to the hidden iframe (Google Forms),
     // then show the thank-you message after a short delay.
     document.getElementById('feedback-form').addEventListener('submit', function() {
       const form = this;
@@ -1821,7 +1821,7 @@
         msg.style.display = 'block';
         window.scrollTo({ top: document.getElementById('feedback').offsetTop - 100, behavior: 'smooth' });
       }, 800);
-      // Do NOT call e.preventDefault() â the form must actually submit to Google
+      // Do NOT call e.preventDefault() — the form must actually submit to Google
     });
 
     // Smooth anchor links (close mobile nav)
@@ -1831,7 +1831,7 @@
       });
     });
 
-    // ââ PDF.js Masterplan Flipbook ââââââââââââââââââââââââââââââ
+    // ── PDF.js Masterplan Flipbook ──────────────────────────────
     if (typeof pdfjsLib !== 'undefined') {
       pdfjsLib.GlobalWorkerOptions.workerSrc =
         'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
