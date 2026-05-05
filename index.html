@@ -491,12 +491,10 @@
     .flipbook-wrap {
       margin-top: 3rem;
       border-radius: 10px;
-      /* overflow:hidden intentionally omitted — it flattens preserve-3d in Safari */
+      overflow: hidden;
       box-shadow: 0 12px 50px rgba(0,0,0,0.35);
       background: #1a3a2a;
     }
-    /* Clip rounded corners without breaking 3D transform context */
-    .flipbook-bar   { border-radius: 10px 10px 0 0; }
     .flipbook-viewer {
       width: 100%;
       position: relative;
@@ -505,39 +503,14 @@
       align-items: center;
       justify-content: center;
       min-height: 420px;
-      border-radius: 0 0 10px 10px;
     }
-    /* ─── 3D Page-turn animation ────────────────────────────── */
-    #flip-stage {
-      width: 100%;
-      perspective: 1400px;
-      perspective-origin: 50% 35%;
-    }
-    #flipper {
-      position: relative;
-      width: 100%;
-      -webkit-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-      transition: transform 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-      -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000);
-    }
-    #flipper.go-next { -webkit-transform: rotateY(-180deg); transform: rotateY(-180deg); }
-    #flipper.go-prev { -webkit-transform: rotateY( 180deg); transform: rotateY( 180deg); }
-    .flip-face {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-    .flip-face canvas {
+    #pdf-canvas {
       display: block;
       width: 100%;
       height: auto;
+      max-height: 75vh;
+      object-fit: contain;
     }
-    .flip-face-back { -webkit-transform: rotateY(180deg); transform: rotateY(180deg); }
-    /* keep front face in normal flow so flipper gets natural height */
-    #face-a { position: relative; }
     /* Prev / Next hit areas */
     .flip-btn {
       position: absolute;
@@ -1463,13 +1436,8 @@
             <p>Save your masterplan as <code>masterplan.pdf</code> in the same folder as this HTML file and it will appear here as a page-by-page flipbook.</p>
           </div>
 
-          <!-- The PDF renders here with 3D page-turn animation -->
-          <div id="flip-stage" style="display:none;">
-            <div id="flipper">
-              <div class="flip-face" id="face-a"><canvas id="canvas-a"></canvas></div>
-              <div class="flip-face flip-face-back" id="face-b"><canvas id="canvas-b"></canvas></div>
-            </div>
-          </div>
+          <!-- The PDF renders here -->
+          <canvas id="pdf-canvas" style="display:none;"></canvas>
 
           <!-- Prev / Next arrows -->
           <button class="flip-btn flip-btn--prev" id="btn-prev" disabled style="display:none;" aria-label="Previous page">
@@ -1869,143 +1837,82 @@
       });
     });
 
-    // ── PDF.js Brochure Flipbook — 3D page-turn animation ──────
+    // ── PDF.js Masterplan Flipbook ──────────────────────────────
     if (typeof pdfjsLib !== 'undefined') {
       pdfjsLib.GlobalWorkerOptions.workerSrc =
         'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-      let pdfDoc = null, currentPage = 1, totalPages = 0, isFlipping = false;
-      let scale = 1.5;
-
-      // DOM refs
-      const loadingEl   = document.getElementById('pdf-loading');
+      let pdfDoc = null, currentPage = 1, scale = 1.5, rendering = false;
+      const canvas      = document.getElementById('pdf-canvas');
+      const ctx         = canvas.getContext('2d');
+      const loading     = document.getElementById('pdf-loading');
       const placeholder = document.getElementById('pdf-placeholder');
-      const pageNumEl   = document.getElementById('page-num');
-      const pageCountEl = document.getElementById('page-count');
-      const pageInfoEl  = document.getElementById('page-info');
+      const pageNum     = document.getElementById('page-num');
+      const pageCount   = document.getElementById('page-count');
+      const pageInfo    = document.getElementById('page-info');
       const btnPrev     = document.getElementById('btn-prev');
       const btnNext     = document.getElementById('btn-next');
       const zoomIn      = document.getElementById('zoom-in');
       const zoomOut     = document.getElementById('zoom-out');
       const viewer      = document.getElementById('flipbook-viewer');
-      const flipStage   = document.getElementById('flip-stage');
-      const flipper     = document.getElementById('flipper');
 
-      // Two faces — A starts as front (in normal flow), B starts as back (rotated 180°)
-      let frontFace   = document.getElementById('face-a');
-      let backFace    = document.getElementById('face-b');
-      let frontCanvas = document.getElementById('canvas-a');
-      let backCanvas  = document.getElementById('canvas-b');
-
-      // Render a PDF page into a given canvas, sized to fit the viewer
-      async function renderToCanvas(pageNum, canvas) {
-        const page        = await pdfDoc.getPage(pageNum);
-        const viewerWidth = viewer.clientWidth || 900;
-        const baseVp      = page.getViewport({ scale: 1 });
-        const fitScale    = (viewerWidth / baseVp.width) * (scale / 1.5);
-        const vp          = page.getViewport({ scale: fitScale });
-        canvas.width      = vp.width;
-        canvas.height     = vp.height;
-        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      function renderPage(n) {
+        if (rendering) return;
+        rendering = true;
+        pdfDoc.getPage(n).then(page => {
+          // Fit canvas to viewer width
+          const viewerWidth = viewer.clientWidth || 800;
+          const baseVp = page.getViewport({ scale: 1 });
+          const fitScale = Math.min(scale, (viewerWidth - 32) / baseVp.width);
+          const vp = page.getViewport({ scale: fitScale * scale / 1.5 });
+          canvas.width  = vp.width;
+          canvas.height = vp.height;
+          page.render({ canvasContext: ctx, viewport: vp }).promise.then(() => {
+            rendering = false;
+            pageNum.textContent  = n;
+            btnPrev.disabled = n <= 1;
+            btnNext.disabled = n >= pdfDoc.numPages;
+          });
+        });
       }
 
-      function updateUI(n) {
-        pageNumEl.textContent = n;
-        btnPrev.disabled = n <= 1;
-        btnNext.disabled = n >= totalPages;
-      }
-
-      // Swap which face is "front" after a flip completes
-      function swapFaces() {
-        // The new front face (what was back) should be in normal flow
-        backFace.classList.remove('flip-face-back');
-        backFace.style.position = 'relative';
-        // The old front face goes to back — absolute + hidden behind
-        frontFace.classList.add('flip-face-back');
-        frontFace.style.position = 'absolute';
-        // Swap references
-        [frontFace,   backFace  ] = [backFace,   frontFace  ];
-        [frontCanvas, backCanvas] = [backCanvas, frontCanvas];
-      }
-
-      async function goNext() {
-        if (isFlipping || currentPage >= totalPages) return;
-        isFlipping = true;
-        // Render the incoming page onto the hidden back face
-        await renderToCanvas(currentPage + 1, backCanvas);
-        // Trigger the 3D flip
-        flipper.classList.add('go-next');
-        setTimeout(() => {
-          flipper.classList.remove('go-next');
-          swapFaces();
-          currentPage++;
-          updateUI(currentPage);
-          isFlipping = false;
-        }, 680);
-      }
-
-      async function goPrev() {
-        if (isFlipping || currentPage <= 1) return;
-        isFlipping = true;
-        await renderToCanvas(currentPage - 1, backCanvas);
-        flipper.classList.add('go-prev');
-        setTimeout(() => {
-          flipper.classList.remove('go-prev');
-          swapFaces();
-          currentPage--;
-          updateUI(currentPage);
-          isFlipping = false;
-        }, 680);
-      }
-
-      // Load the PDF and show first page
-      pdfjsLib.getDocument('brochure2.pdf').promise.then(async pdf => {
-        pdfDoc      = pdf;
-        totalPages  = pdf.numPages;
-
-        // Show the controls
-        loadingEl.style.display    = 'none';
-        flipStage.style.display    = 'block';
+      pdfjsLib.getDocument('brochure2.pdf').promise.then(pdf => {
+        pdfDoc = pdf;
+        loading.style.display      = 'none';
+        canvas.style.display       = 'block';
         btnPrev.style.display      = 'flex';
         btnNext.style.display      = 'flex';
-        pageInfoEl.style.display   = 'inline-flex';
+        pageInfo.style.display     = 'inline-flex';
         zoomIn.style.display       = 'inline-flex';
         zoomOut.style.display      = 'inline-flex';
-        pageCountEl.textContent    = totalPages;
-
-        await renderToCanvas(1, frontCanvas);
-        updateUI(1);
+        pageCount.textContent      = pdf.numPages;
+        renderPage(1);
       }).catch(() => {
-        loadingEl.style.display   = 'none';
-        placeholder.style.display = 'flex';
+        loading.style.display      = 'none';
+        placeholder.style.display  = 'flex';
       });
 
-      // Button clicks
-      btnPrev.addEventListener('click', goPrev);
-      btnNext.addEventListener('click', goNext);
-
-      // Zoom (re-render front canvas at new scale)
-      zoomIn.addEventListener('click', async () => {
+      btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) renderPage(--currentPage);
+      });
+      btnNext.addEventListener('click', () => {
+        if (pdfDoc && currentPage < pdfDoc.numPages) renderPage(++currentPage);
+      });
+      zoomIn.addEventListener('click', () => {
         scale = Math.min(scale + 0.25, 3);
-        if (pdfDoc && !isFlipping) await renderToCanvas(currentPage, frontCanvas);
+        renderPage(currentPage);
       });
-      zoomOut.addEventListener('click', async () => {
+      zoomOut.addEventListener('click', () => {
         scale = Math.max(scale - 0.25, 0.5);
-        if (pdfDoc && !isFlipping) await renderToCanvas(currentPage, frontCanvas);
+        renderPage(currentPage);
       });
 
-      // Keyboard navigation
-      document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
-        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp'  ) goPrev();
-      });
-
-      // Re-render on resize
+      // Re-render on window resize to keep it fitting the viewer
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(async () => {
-          if (pdfDoc && !isFlipping) await renderToCanvas(currentPage, frontCanvas);
+        resizeTimer = setTimeout(() => {
+          if (pdfDoc) renderPage(currentPage);
         }, 200);
       });
     }
