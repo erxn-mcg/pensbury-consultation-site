@@ -556,6 +556,63 @@
       letter-spacing: 2px;
       text-transform: uppercase;
     }
+    .btn-dl-brochure {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--c-yellow);
+      color: #fff;
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-dl-brochure:hover { background: var(--c-amber); }
+
+    /* ─── Mobile brochure cover (hidden on desktop) ─────────────── */
+    .flipbook-mobile-cover { display: none; }
+    @media (max-width: 600px) {
+      .flipbook-wrap { display: none; }
+      .flipbook-mobile-cover {
+        display: block;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+      .flipbook-mobile-cover img {
+        width: 100%;
+        display: block;
+      }
+      .flipbook-mobile-cover__btn {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: var(--c-yellow);
+        color: #fff;
+        font-family: var(--f-body);
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 0.65rem 1.4rem;
+        border-radius: 50px;
+        white-space: nowrap;
+        text-decoration: none;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+        transition: background 0.2s;
+      }
+      .flipbook-mobile-cover__btn:hover { background: var(--c-amber); }
+    }
     .flipbook-bar .bar-right {
       display: flex;
       align-items: center;
@@ -1376,12 +1433,12 @@
           <a href="#feedback" class="btn btn-primary" style="display:inline-block;margin-top:1rem;">Have Your Say</a>
         </div>
         <div class="col-image-wrap" style="position:relative;">
-          <a href="brochure2.pdf" download="Pensby-Consultation-Brochure.pdf" title="Download our consultation brochure (PDF)" style="display:block;position:relative;">
+          <a href="masterplan.pdf" download="Pensby-Masterplan.pdf" title="Download the draft masterplan (PDF)" style="display:block;position:relative;">
             <img src="site-map.jpg" alt="Site location map — Gills Lane, Pensby" class="col-image-img"
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <!-- Download badge overlaid on image -->
             <span style="position:absolute;bottom:1rem;right:1rem;background:var(--c-yellow);color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:0.5rem 1rem;border-radius:50px;display:flex;align-items:center;gap:0.4rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);">
-              ↓ Download Brochure
+              ↓ Download Masterplan
             </span>
           </a>
           <div class="col-image-placeholder" style="display:none;">
@@ -1403,11 +1460,17 @@
       </p>
       <!-- ── Masterplan flipbook ── -->
       <!-- Save your masterplan PDF as masterplan.pdf in the same folder as this file -->
+      <!-- Mobile fallback: static cover image + download button -->
+      <div class="flipbook-mobile-cover">
+        <img src="brochure-cover.jpg" alt="Pensby Consultation Brochure cover">
+        <a class="flipbook-mobile-cover__btn" href="brochure2.pdf" download="Pensby-Consultation-Brochure.pdf">↓ Click to Download Brochure</a>
+      </div>
+
       <div class="flipbook-wrap">
 
         <!-- Toolbar -->
         <div class="flipbook-bar">
-          <span class="bar-label">Gills Lane, Pensby</span>
+          <a class="btn-dl-brochure" href="brochure2.pdf" download="Pensby-Consultation-Brochure.pdf" title="Download the consultation brochure (PDF)">↓ Download Brochure</a>
           <div class="bar-right">
             <span class="page-info" id="page-info" style="display:none;">
               Page <strong id="page-num">1</strong> of <strong id="page-count">—</strong>
