@@ -1432,8 +1432,7 @@
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
               <path d="M14 2v6h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <h4>Add your masterplan PDF</h4>
-            <p>Save your masterplan as <code>masterplan.pdf</code> in the same folder as this HTML file and it will appear here as a page-by-page flipbook.</p>
+            
           </div>
 
           <!-- The PDF renders here -->
@@ -1450,9 +1449,7 @@
         </div><!-- /flipbook-viewer -->
       </div><!-- /flipbook-wrap -->
 
-      <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;margin-top:0.75rem;text-align:center;">
-        Illustrative brochure — for indicative purposes only, subject to change.
-      </p>
+     
     </div>
   </section>
 
@@ -1876,7 +1873,7 @@
         });
       }
 
-      pdfjsLib.getDocument('brochure2.pdf').promise.then(pdf => {
+      pdfjsLib.getDocument('Pensby-Brochure.pdf').promise.then(pdf => {
         pdfDoc = pdf;
         loading.style.display      = 'none';
         canvas.style.display       = 'block';
